@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module i2s_top
+module fpga_dac_top
 (
     input        pl_clk_50m_i,
     input  [1:0] pl_key_i,
