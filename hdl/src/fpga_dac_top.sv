@@ -13,7 +13,7 @@ module fpga_dac_top
 
     input  [3:0] ext_key_i,
 
-    input        dsd_oe_o,
+    input        dsd_oe_i,
 
     output [3:0] pl_led_o,
 
@@ -22,40 +22,40 @@ module fpga_dac_top
 );
 
 `ifdef __ICARUS__
-    wire                   clk = i2s_in_sck_i;
+    wire                  clk = i2s_in_sck_i;
 `elsif XILINX_SIMULATOR
-    wire                   clk = i2s_in_sck_i;
+    wire                  clk = i2s_in_sck_i;
 `else
-    logic                  clk;
+    wire                  clk;
 `endif
-    logic [$clog2(1024):0] clk_div;
-    logic                  clk_1024fs_stb;
-    logic                  clk_512fs_stb;
-    logic                  clk_256fs_stb;
-    logic                  clk_128fs_stb;
-    logic                  clk_64fs_stb;
-    logic                  clk_32fs_stb;
-    logic                  clk_16fs_stb;
-    logic                  clk_8fs_stb;
-    logic                  clk_4fs_stb;
-    logic                  clk_2fs_stb;
-    logic                  clk_fs_stb;
+    reg  [$clog2(1024):0] clk_div;
+    wire                  clk_1024fs_stb;
+    wire                  clk_512fs_stb;
+    wire                  clk_256fs_stb;
+    wire                  clk_128fs_stb;
+    wire                  clk_64fs_stb;
+    wire                  clk_32fs_stb;
+    wire                  clk_16fs_stb;
+    wire                  clk_8fs_stb;
+    wire                  clk_4fs_stb;
+    wire                  clk_2fs_stb;
+    wire                  clk_fs_stb;
 
-    wire                   rst = ~ext_key_i[0];
+    wire                  rst = ~ext_key_i[0];
 
-    logic                  i2s_in_bck_r;
-    logic                  i2s_in_lrck_r;
-    logic                  i2s_in_sdata_r;
+    reg                   i2s_in_bck_r;
+    reg                   i2s_in_lrck_r;
+    reg                   i2s_in_sdata_r;
 
-    logic [          31:0] data_l, data_r;
-    logic                  data_l_stb, data_r_stb;
+    wire [          31:0] data_l, data_r;
+    wire                  data_l_stb, data_r_stb;
 
-    logic [          25:0] led_cntr;
+    reg  [          25:0] led_cntr;
 
-    assign pl_led_o[1]    = dsd_oe_o;
+    assign pl_led_o[1]    = dsd_oe_i;
     assign pl_led_o[3]    = led_cntr[25];
 
-    assign dsm_clk_o      = dsd_oe_o ? i2s_in_bck_r :
+    assign dsm_clk_o      = dsd_oe_i ? i2s_in_bck_r :
         (ext_key_i[1] ? clk : clk_64fs_stb);
     assign dsm_out_o[0]   = 1'b0;
     assign dsm_out_o[1]   = 1'b0;
@@ -107,7 +107,7 @@ module fpga_dac_top
     // Clock div counter
     always @ (posedge clk) begin
         if (rst)
-            clk_div <= '0;
+            clk_div <= 0;
         else
             clk_div <= clk_div + 1'b1;
     end
@@ -122,7 +122,7 @@ module fpga_dac_top
     // LED blink counter
     always @ (posedge clk) begin
         if (rst)
-            led_cntr <= '0;
+            led_cntr <= 0;
         else
             led_cntr <= led_cntr + 1'b1;
     end

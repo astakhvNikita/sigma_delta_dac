@@ -24,13 +24,13 @@ module i2s_receiver
     logic [31:0] shift, shift_r;
 
     assign bck_posedge  =  bck_i  & ~bck_r;
-    assign lrck_posedge =  lrck_i & ~lrck_r;
-    assign lrck_negedge = ~lrck_i &  lrck_r;
+    assign lrck_posedge =  lrck_i & ~lrck_r;  // Lch strobe signal
+    assign lrck_negedge = ~lrck_i &  lrck_r;  // Rch strobe signal
 
     assign shift        = { shift_r[30:0], sdata_i };  // MSB first
 
-    assign data_l_stb_o = lrck_posedge;  // Lch strobe signal
-    assign data_r_stb_o = lrck_negedge;  // Rch strobe signal
+    assign data_l_stb_o = lrck_posedge;
+    assign data_r_stb_o = lrck_negedge;
 
     // BCK edge detector flip-flop
     always_ff @ (posedge clk_i) begin
