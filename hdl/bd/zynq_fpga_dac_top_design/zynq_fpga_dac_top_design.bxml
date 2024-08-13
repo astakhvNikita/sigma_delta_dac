@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root MajorVersion="0" MinorVersion="37">
+  <CompositeFile CompositeFileTopName="zynq_fpga_dac_top_design" CanBeSetAsTop="false" CanDisplayChildGraph="true">
+    <Description>Composite Fileset</Description>
+    <Generation Name="SYNTHESIS" State="STALE" Timestamp="1723576613"/>
+    <Generation Name="IMPLEMENTATION" State="STALE" Timestamp="1723576613"/>
+    <Generation Name="SIMULATION" State="STALE" Timestamp="1723576613"/>
+    <Generation Name="HW_HANDOFF" State="STALE" Timestamp="1723576613"/>
+    <FileCollection Name="SOURCES" Type="SOURCES">
+      <File Name="ip\zynq_fpga_dac_top_design_processing_system7_0_0\zynq_fpga_dac_top_design_processing_system7_0_0.xci" Type="IP">
+        <Instance HierarchyPath="processing_system7_0"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip\zynq_fpga_dac_top_design_proc_sys_reset_0_0\zynq_fpga_dac_top_design_proc_sys_reset_0_0.xci" Type="IP">
+        <Instance HierarchyPath="proc_sys_reset_0"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+    </FileCollection>
+  </CompositeFile>
+</Root>
