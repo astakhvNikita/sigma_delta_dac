@@ -1,7 +1,7 @@
 //Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-//Date        : Tue Aug 13 22:55:47 2024
+//Date        : Tue Aug 13 23:12:35 2024
 //Host        : DESKTOP-MKJA6P7 running 64-bit major release  (build 9200)
 //Command     : generate_target zynq_fpga_dac_top_design.bd
 //Design      : zynq_fpga_dac_top_design
@@ -9,7 +9,7 @@
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CORE_GENERATION_INFO = "zynq_fpga_dac_top_design,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=zynq_fpga_dac_top_design,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=2,numReposBlks=2,numNonXlnxBlks=0,numHierBlks=0,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_clkrst_cnt=1,da_ps7_cnt=1,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "zynq_fpga_dac_top_design.hwdef" *) 
+(* CORE_GENERATION_INFO = "zynq_fpga_dac_top_design,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=zynq_fpga_dac_top_design,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=3,numReposBlks=3,numNonXlnxBlks=0,numHierBlks=0,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=1,numPkgbdBlks=0,bdsource=USER,da_clkrst_cnt=1,da_ps7_cnt=1,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "zynq_fpga_dac_top_design.hwdef" *) 
 module zynq_fpga_dac_top_design
    (DDR_addr,
     DDR_ba,
@@ -78,6 +78,16 @@ module zynq_fpga_dac_top_design
   wire processing_system7_0_FIXED_IO_PS_PORB;
   wire processing_system7_0_FIXED_IO_PS_SRSTB;
 
+  zynq_fpga_dac_top_design_fpga_dac_top_0_0 fpga_dac_top_0
+       (.dsd_oe_i(1'b0),
+        .ext_key_i({1'b0,1'b0,1'b0,1'b0}),
+        .i2s_in_bck_i(1'b0),
+        .i2s_in_lrck_i(1'b0),
+        .i2s_in_sck_i(1'b0),
+        .i2s_in_sck_nc_i(1'b0),
+        .i2s_in_sdata_i(1'b0),
+        .pl_clk_50m_i(processing_system7_0_FCLK_CLK0),
+        .pl_key_i({1'b0,1'b0}));
   zynq_fpga_dac_top_design_proc_sys_reset_0_0 proc_sys_reset_0
        (.aux_reset_in(1'b1),
         .dcm_locked(1'b1),
