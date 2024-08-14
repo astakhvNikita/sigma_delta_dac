@@ -85,4 +85,4 @@
 !*.bmm
 !*.xmp
 
-zynq_fpga_dac/
+vivado/
