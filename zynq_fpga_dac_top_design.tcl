@@ -233,6 +233,7 @@ proc create_root_design { parentCell } {
   set i2s_in_sck_i_0 [ create_bd_port -dir I i2s_in_sck_i_0 ]
   set i2s_in_sck_nc_i_0 [ create_bd_port -dir I i2s_in_sck_nc_i_0 ]
   set i2s_in_sdata_i_0 [ create_bd_port -dir I i2s_in_sdata_i_0 ]
+  set pl_clk_50m_i_0 [ create_bd_port -dir I pl_clk_50m_i_0 ]
   set pl_key_i_0 [ create_bd_port -dir I -from 1 -to 0 pl_key_i_0 ]
   set pl_led_o_0 [ create_bd_port -dir O -from 3 -to 0 pl_led_o_0 ]
 
@@ -299,9 +300,10 @@ proc create_root_design { parentCell } {
   connect_bd_net -net i2s_in_sck_i_0_1 [get_bd_ports i2s_in_sck_i_0] [get_bd_pins fpga_dac_top_0/i2s_in_sck_i]
   connect_bd_net -net i2s_in_sck_nc_i_0_1 [get_bd_ports i2s_in_sck_nc_i_0] [get_bd_pins fpga_dac_top_0/i2s_in_sck_nc_i]
   connect_bd_net -net i2s_in_sdata_i_0_1 [get_bd_ports i2s_in_sdata_i_0] [get_bd_pins fpga_dac_top_0/i2s_in_sdata_i]
+  connect_bd_net -net pl_clk_50m_i_0_1 [get_bd_ports pl_clk_50m_i_0] [get_bd_pins fpga_dac_top_0/pl_clk_50m_i]
   connect_bd_net -net pl_key_i_0_1 [get_bd_ports pl_key_i_0] [get_bd_pins fpga_dac_top_0/pl_key_i]
   connect_bd_net -net proc_sys_reset_0_peripheral_aresetn [get_bd_pins fpga_dac_top_0/s0_axi_aresetn] [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins ps7_0_axi_periph/ARESETN] [get_bd_pins ps7_0_axi_periph/M00_ARESETN] [get_bd_pins ps7_0_axi_periph/S00_ARESETN]
-  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins fpga_dac_top_0/pl_clk_50m_i] [get_bd_pins fpga_dac_top_0/s0_axi_aclk] [get_bd_pins proc_sys_reset_0/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins ps7_0_axi_periph/ACLK] [get_bd_pins ps7_0_axi_periph/M00_ACLK] [get_bd_pins ps7_0_axi_periph/S00_ACLK]
+  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins fpga_dac_top_0/s0_axi_aclk] [get_bd_pins proc_sys_reset_0/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins ps7_0_axi_periph/ACLK] [get_bd_pins ps7_0_axi_periph/M00_ACLK] [get_bd_pins ps7_0_axi_periph/S00_ACLK]
   connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins proc_sys_reset_0/ext_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET0_N]
 
   # Create address segments

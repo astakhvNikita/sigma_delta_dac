@@ -143,7 +143,7 @@ module fpga_dac_top
     end
 
     // LED blink counter
-    always @ (posedge clk) begin
+    always @ (posedge pl_clk_50m_i) begin
         if (rst)
             led_cntr <= 0;
         else

@@ -1,7 +1,7 @@
 //Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-//Date        : Wed Aug 14 20:00:18 2024
+//Date        : Wed Aug 14 21:58:03 2024
 //Host        : DESKTOP-MKJA6P7 running 64-bit major release  (build 9200)
 //Command     : generate_target zynq_fpga_dac_top_design_wrapper.bd
 //Design      : zynq_fpga_dac_top_design_wrapper
@@ -40,6 +40,7 @@ module zynq_fpga_dac_top_design_wrapper
     i2s_in_sck_i_0,
     i2s_in_sck_nc_i_0,
     i2s_in_sdata_i_0,
+    pl_clk_50m_i_0,
     pl_key_i_0,
     pl_led_o_0);
   inout [14:0]DDR_addr;
@@ -72,6 +73,7 @@ module zynq_fpga_dac_top_design_wrapper
   input i2s_in_sck_i_0;
   input i2s_in_sck_nc_i_0;
   input i2s_in_sdata_i_0;
+  input pl_clk_50m_i_0;
   input [1:0]pl_key_i_0;
   output [3:0]pl_led_o_0;
 
@@ -105,6 +107,7 @@ module zynq_fpga_dac_top_design_wrapper
   wire i2s_in_sck_i_0;
   wire i2s_in_sck_nc_i_0;
   wire i2s_in_sdata_i_0;
+  wire pl_clk_50m_i_0;
   wire [1:0]pl_key_i_0;
   wire [3:0]pl_led_o_0;
 
@@ -139,6 +142,7 @@ module zynq_fpga_dac_top_design_wrapper
         .i2s_in_sck_i_0(i2s_in_sck_i_0),
         .i2s_in_sck_nc_i_0(i2s_in_sck_nc_i_0),
         .i2s_in_sdata_i_0(i2s_in_sdata_i_0),
+        .pl_clk_50m_i_0(pl_clk_50m_i_0),
         .pl_key_i_0(pl_key_i_0),
         .pl_led_o_0(pl_led_o_0));
 endmodule

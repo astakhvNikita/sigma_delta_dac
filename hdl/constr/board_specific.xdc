@@ -1,6 +1,6 @@
 ## Clocks
-set_property -dict { PACKAGE_PIN K17 IOSTANDARD LVCMOS33 } [get_ports { pl_clk_50m }];  # IO_L12P_T1_MRCC_35 / PL_CLK_50M
-create_clock -add -name pl_clk_50m -period 20.00 -waveform {0.00 10.00} [get_ports { pl_clk_50m }];
+set_property -dict { PACKAGE_PIN K17 IOSTANDARD LVCMOS33 } [get_ports { pl_clk_50m_i_0 }];  # IO_L12P_T1_MRCC_35 / PL_CLK_50M
+create_clock -add -name pl_clk_50m_i_0 -period 20.00 -waveform {0.00 10.00} [get_ports { pl_clk_50m_i_0 }];
 set_property -dict { PACKAGE_PIN U14 IOSTANDARD LVCMOS33 } [get_ports { i2s_in_sck_i_0 }];  # IO_L11P_T1_SRCC_34 / FPGA_GPIO_11P_34
 create_clock -add -name i2s_in_sck_i_0 -period 80.00 -waveform {0.00 40.00} [get_ports { i2s_in_sck_i_0 }];
 
