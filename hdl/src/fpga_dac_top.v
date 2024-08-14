@@ -18,7 +18,107 @@ module fpga_dac_top
     output [3:0] pl_led_o,
 
     output       dsm_clk_o,
-    output [1:0] dsm_out_o
+    output [1:0] dsm_out_o,
+
+    // Normally AXI is automatically inferred.  However, if the names of your ports do not match, you can force the
+    // the creation of an interface and map the physical ports to the logical ports by using the X_INTERFACE_INFO
+    // attribute before each physical port
+    // Typical parameters the user might specify: PROTOCOL {AXI4, AXI4LITE, AXI3}, SUPPORTS_NARROW_BURST {0, 1}, NUM_READ_OUTSTANDING, NUM_WRITE_OUTSTANDING, MAX_BURST_LENGTH
+    // The PROTOCOL can be typically be inferred from the set of signals.
+    // aximm - AMBA AXI Interface (slave directions)
+    // 
+    // Allowed parameters:
+    //  CLK_DOMAIN                - Clk Domain                (string default: <blank>) 
+    //  PHASE                     - Phase                     (float) 
+    //  MAX_BURST_LENGTH          - Max Burst Length          (long default: 256) [1, 256]
+    //  NUM_WRITE_OUTSTANDING     - Num Write Outstanding     (long default: 1) [0, 32]
+    //  NUM_READ_OUTSTANDING      - Num Read Outstanding      (long default: 1) [0, 32]
+    //  SUPPORTS_NARROW_BURST     - Supports Narrow Burst     (long default: 1) [0, 1]
+    //  READ_WRITE_MODE           - Read Write Mode           (string default: READ_WRITE) {READ_WRITE,READ_ONLY,WRITE_ONLY}
+    //  BUSER_WIDTH               - Buser Width               (long) 
+    //  RUSER_WIDTH               - Ruser Width               (long) 
+    //  WUSER_WIDTH               - Wuser Width               (long) 
+    //  ARUSER_WIDTH              - Aruser Width              (long) 
+    //  AWUSER_WIDTH              - Awuser Width              (long) 
+    //  ADDR_WIDTH                - Addr Width                (long default: 32) [1, 64]
+    //  ID_WIDTH                  - Id Width                  (long) 
+    //  FREQ_HZ                   - Frequency                 (float default: 100000000) 
+    //  PROTOCOL                  - Protocol                  (string default: AXI4) {AXI4,AXI4LITE,AXI3}
+    //  DATA_WIDTH                - Data Width                (long default: 32) {32,64,128,256,512,1024}
+    //  HAS_BURST                 - Has BURST                 (long default: 1) {0,1}
+    //  HAS_CACHE                 - Has CACHE                 (long default: 1) {0,1}
+    //  HAS_LOCK                  - Has LOCK                  (long default: 1) {0,1}
+    //  HAS_PROT                  - Has PROT                  (long default: 1) {0,1}
+    //  HAS_QOS                   - Has QOS                   (long default: 1) {0,1}
+    //  HAS_REGION                - Has REGION                (long default: 1) {0,1}
+    //  HAS_WSTRB                 - Has WSTRB                 (long default: 1) {0,1}
+    //  HAS_BRESP                 - Has BRESP                 (long default: 1) {0,1}
+    //  HAS_RRESP                 - Has RRESP                 (long default: 1) {0,1}
+
+    input s0_axi_aclk,
+    input s0_axi_aresetn,
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> AWID" *)
+    // Uncomment the following to set interface specific parameter on the bus interface.
+    //  (* X_INTERFACE_PARAMETER = "CLK_DOMAIN <value>,PHASE <value>,MAX_BURST_LENGTH <value>,NUM_WRITE_OUTSTANDING <value>,NUM_READ_OUTSTANDING <value>,SUPPORTS_NARROW_BURST <value>,READ_WRITE_MODE <value>,BUSER_WIDTH <value>,RUSER_WIDTH <value>,WUSER_WIDTH <value>,ARUSER_WIDTH <value>,AWUSER_WIDTH <value>,ADDR_WIDTH <value>,ID_WIDTH <value>,FREQ_HZ <value>,PROTOCOL <value>,DATA_WIDTH <value>,HAS_BURST <value>,HAS_CACHE <value>,HAS_LOCK <value>,HAS_PROT <value>,HAS_QOS <value>,HAS_REGION <value>,HAS_WSTRB <value>,HAS_BRESP <value>,HAS_RRESP <value>" *)
+    input [31:0] s0_axi_awid, // Write address ID (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> AWADDR" *)
+    input [31:0] s0_axi_awaddr, // Write address (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> AWSIZE" *)
+    input [2:0] s0_axi_awsize, // Burst size (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> AWBURST" *)
+    input [1:0] s0_axi_awburst, // Burst type (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> AWCACHE" *)
+    input [3:0] s0_axi_awcache, // Cache type (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> AWPROT" *)
+    input [2:0] s0_axi_awprot, // Protection type (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> AWREGION" *)
+    input [3:0] s0_axi_awregion, // Write address slave region (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> AWQOS" *)
+    input [3:0] s0_axi_awqos, // Transaction Quality of Service token (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> AWVALID" *)
+    input s0_axi_awvalid, // Write address valid (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> AWREADY" *)
+    output s0_axi_awready, // Write address ready (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> WDATA" *)
+    input [31:0] s0_axi_wdata, // Write data (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> WLAST" *)
+    input s0_axi_wlast, // Write last beat (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> WVALID" *)
+    input s0_axi_wvalid, // Write valid (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> WREADY" *)
+    output s0_axi_wready, // Write ready (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> BRESP" *)
+    output [1:0] s0_axi_bresp, // Write response (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> BVALID" *)
+    output s0_axi_bvalid, // Write response valid (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> BREADY" *)
+    input s0_axi_bready, // Write response ready (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> ARADDR" *)
+    input [31:0] s0_axi_araddr, // Read address (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> ARSIZE" *)
+    input [2:0] s0_axi_arsize, // Burst size (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> ARBURST" *)
+    input [1:0] s0_axi_arburst, // Burst type (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> ARCACHE" *)
+    input [3:0] s0_axi_arcache, // Cache type (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> ARPROT" *)
+    input [2:0] s0_axi_arprot, // Protection type (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> ARQOS" *)
+    input [3:0] s0_axi_arqos, // Quality of service token (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> ARVALID" *)
+    input s0_axi_arvalid, // Read address valid (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> ARREADY" *)
+    output s0_axi_arready, // Read address ready (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> RDATA" *)
+    output [31:0] s0_axi_rdata, // Read data (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> RRESP" *)
+    output [1:0] s0_axi_rresp, // Read response (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> RLAST" *)
+    output s0_axi_rlast, // Read last beat (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> RVALID" *)
+    output s0_axi_rvalid, // Read valid (optional)
+    //(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 <interface_name> RREADY" *)
+    input s0_axi_rready // Read ready (optional)
 );
 
 `ifdef __ICARUS__

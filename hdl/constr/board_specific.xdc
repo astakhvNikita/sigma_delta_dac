@@ -13,10 +13,10 @@ set_property -dict { PACKAGE_PIN V15 IOSTANDARD LVCMOS33 } [get_ports { ext_key_
 set_property -dict { PACKAGE_PIN P15 IOSTANDARD LVCMOS33 } [get_ports { ext_key_i_0[0] }];  # IO_L24P_T3_34 / FPGA_GPIO_24P_34
 
 ## LEDs
-#set_property -dict { PACKAGE_PIN W13 IOSTANDARD LVCMOS33 } [get_ports { pl_led[3] }];  # IO_L4N_T0_34 / FPGA_PL_LED4
-#set_property -dict { PACKAGE_PIN V12 IOSTANDARD LVCMOS33 } [get_ports { pl_led[2] }];  # IO_L4P_T0_34 / FPGA_PL_LED3
-#set_property -dict { PACKAGE_PIN U12 IOSTANDARD LVCMOS33 } [get_ports { pl_led[1] }];  # IO_L2N_T0_34 / FPGA_PL_LED2
-#set_property -dict { PACKAGE_PIN T12 IOSTANDARD LVCMOS33 } [get_ports { pl_led[0] }];  # IO_L2P_T0_34 / FPGA_PL_LED1
+set_property -dict { PACKAGE_PIN W13 IOSTANDARD LVCMOS33 } [get_ports { pl_led_o_0[3] }];  # IO_L4N_T0_34 / FPGA_PL_LED4
+set_property -dict { PACKAGE_PIN V12 IOSTANDARD LVCMOS33 } [get_ports { pl_led_o_0[2] }];  # IO_L4P_T0_34 / FPGA_PL_LED3
+set_property -dict { PACKAGE_PIN U12 IOSTANDARD LVCMOS33 } [get_ports { pl_led_o_0[1] }];  # IO_L2N_T0_34 / FPGA_PL_LED2
+set_property -dict { PACKAGE_PIN T12 IOSTANDARD LVCMOS33 } [get_ports { pl_led_o_0[0] }];  # IO_L2P_T0_34 / FPGA_PL_LED1
 
 # I2S Input
 set_property -dict { PACKAGE_PIN W18 IOSTANDARD LVCMOS33 } [get_ports { i2s_in_sck_nc_i_0 }];  # IO_L22P_T3_34 / FPGA_GPIO_22P_34
@@ -28,6 +28,6 @@ set_property -dict { PACKAGE_PIN W15 IOSTANDARD LVCMOS33 } [get_ports { i2s_in_s
 set_property -dict { PACKAGE_PIN T17 IOSTANDARD LVCMOS33 PULLDOWN TRUE } [get_ports { dsd_oe_i_0 }];  # IO_L20P_T3_34 / FPGA_GPIO_20P_34
 
 ## DSM Out
-#set_property -dict { PACKAGE_PIN N20 IOSTANDARD LVCMOS33 SLEW FAST } [get_ports { dsm_clk }];  # IO_L14P_T2_SRCC_34 / FPGA_GPIO_14P_34
-#set_property -dict { PACKAGE_PIN T16 IOSTANDARD LVCMOS33 SLEW FAST } [get_ports { dsm_out_o[1] }];  # IO_L9P_T1_DQS_34 / FPGA_GPIO_9P_34
-#set_property -dict { PACKAGE_PIN P19 IOSTANDARD LVCMOS33 SLEW FAST } [get_ports { dsm_out_o[0] }];  # IO_L13N_T2_MRCC_34 / FPGA_GPIO_13N_34
+set_property -dict { PACKAGE_PIN N20 IOSTANDARD LVCMOS33 SLEW FAST } [get_ports { dsm_clk_o_0 }];  # IO_L14P_T2_SRCC_34 / FPGA_GPIO_14P_34
+set_property -dict { PACKAGE_PIN T16 IOSTANDARD LVCMOS33 SLEW FAST } [get_ports { dsm_out_o_0[1] }];  # IO_L9P_T1_DQS_34 / FPGA_GPIO_9P_34
+set_property -dict { PACKAGE_PIN P19 IOSTANDARD LVCMOS33 SLEW FAST } [get_ports { dsm_out_o_0[0] }];  # IO_L13N_T2_MRCC_34 / FPGA_GPIO_13N_34
