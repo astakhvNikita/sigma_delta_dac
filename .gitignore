@@ -85,4 +85,6 @@
 !*.bmm
 !*.xmp
 
+hdl/ip/*/*
+!hdl/ip/*/hdl/
 vivado/
