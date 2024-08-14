@@ -37,6 +37,13 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 # To test this script, run the following commands from Vivado Tcl console:
 # source zynq_fpga_dac_top_design_script.tcl
 
+
+# The design that will be created by this Tcl script contains the following 
+# module references:
+# fpga_dac_top
+
+# Please add the sources of those modules before sourcing this Tcl script.
+
 # If there is no project opened, this script will create a
 # project, but make sure you do not have an existing project
 # <./myproj/project_1.xpr> in the current working folder.
@@ -142,6 +149,31 @@ xilinx.com:ip:processing_system7:5.5\
 
 }
 
+##################################################################
+# CHECK Modules
+##################################################################
+set bCheckModules 1
+if { $bCheckModules == 1 } {
+   set list_check_mods "\ 
+fpga_dac_top\
+"
+
+   set list_mods_missing ""
+   common::send_msg_id "BD_TCL-006" "INFO" "Checking if the following modules exist in the project's sources: $list_check_mods ."
+
+   foreach mod_vlnv $list_check_mods {
+      if { [can_resolve_reference $mod_vlnv] == 0 } {
+         lappend list_mods_missing $mod_vlnv
+      }
+   }
+
+   if { $list_mods_missing ne "" } {
+      catch {common::send_msg_id "BD_TCL-115" "ERROR" "The following module(s) are not found in the project: $list_mods_missing" }
+      common::send_msg_id "BD_TCL-008" "INFO" "Please add source files for the missing module(s) above."
+      set bCheckIPsPassed 0
+   }
+}
+
 if { $bCheckIPsPassed != 1 } {
   common::send_msg_id "BD_TCL-1003" "WARNING" "Will not continue with creation of design due to the error(s) above."
   return 3
@@ -192,7 +224,26 @@ proc create_root_design { parentCell } {
 
 
   # Create ports
+  set dsd_oe_i_0 [ create_bd_port -dir I dsd_oe_i_0 ]
+  set ext_key_i_0 [ create_bd_port -dir I -from 3 -to 0 ext_key_i_0 ]
+  set i2s_in_bck_i_0 [ create_bd_port -dir I i2s_in_bck_i_0 ]
+  set i2s_in_lrck_i_0 [ create_bd_port -dir I i2s_in_lrck_i_0 ]
+  set i2s_in_sck_i_0 [ create_bd_port -dir I i2s_in_sck_i_0 ]
+  set i2s_in_sck_nc_i_0 [ create_bd_port -dir I i2s_in_sck_nc_i_0 ]
+  set i2s_in_sdata_i_0 [ create_bd_port -dir I i2s_in_sdata_i_0 ]
+  set pl_key_i_0 [ create_bd_port -dir I -from 1 -to 0 pl_key_i_0 ]
 
+  # Create instance: fpga_dac_top_0, and set properties
+  set block_name fpga_dac_top
+  set block_cell_name fpga_dac_top_0
+  if { [catch {set fpga_dac_top_0 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+     catch {common::send_msg_id "BD_TCL-105" "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   } elseif { $fpga_dac_top_0 eq "" } {
+     catch {common::send_msg_id "BD_TCL-106" "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   }
+  
   # Create instance: proc_sys_reset_0, and set properties
   set proc_sys_reset_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 proc_sys_reset_0 ]
 
@@ -227,7 +278,15 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net processing_system7_0_FIXED_IO [get_bd_intf_ports FIXED_IO] [get_bd_intf_pins processing_system7_0/FIXED_IO]
 
   # Create port connections
-  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins proc_sys_reset_0/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK]
+  connect_bd_net -net dsd_oe_i_0_1 [get_bd_ports dsd_oe_i_0] [get_bd_pins fpga_dac_top_0/dsd_oe_i]
+  connect_bd_net -net ext_key_i_0_1 [get_bd_ports ext_key_i_0] [get_bd_pins fpga_dac_top_0/ext_key_i]
+  connect_bd_net -net i2s_in_bck_i_0_1 [get_bd_ports i2s_in_bck_i_0] [get_bd_pins fpga_dac_top_0/i2s_in_bck_i]
+  connect_bd_net -net i2s_in_lrck_i_0_1 [get_bd_ports i2s_in_lrck_i_0] [get_bd_pins fpga_dac_top_0/i2s_in_lrck_i]
+  connect_bd_net -net i2s_in_sck_i_0_1 [get_bd_ports i2s_in_sck_i_0] [get_bd_pins fpga_dac_top_0/i2s_in_sck_i]
+  connect_bd_net -net i2s_in_sck_nc_i_0_1 [get_bd_ports i2s_in_sck_nc_i_0] [get_bd_pins fpga_dac_top_0/i2s_in_sck_nc_i]
+  connect_bd_net -net i2s_in_sdata_i_0_1 [get_bd_ports i2s_in_sdata_i_0] [get_bd_pins fpga_dac_top_0/i2s_in_sdata_i]
+  connect_bd_net -net pl_key_i_0_1 [get_bd_ports pl_key_i_0] [get_bd_pins fpga_dac_top_0/pl_key_i]
+  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins fpga_dac_top_0/pl_clk_50m_i] [get_bd_pins proc_sys_reset_0/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK]
   connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins proc_sys_reset_0/ext_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET0_N]
 
   # Create address segments

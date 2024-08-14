@@ -1,7 +1,7 @@
 //Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-//Date        : Wed Aug 14 12:32:24 2024
+//Date        : Wed Aug 14 15:15:38 2024
 //Host        : DESKTOP-MKJA6P7 running 64-bit major release  (build 9200)
 //Command     : generate_target zynq_fpga_dac_top_design_wrapper.bd
 //Design      : zynq_fpga_dac_top_design_wrapper
@@ -30,7 +30,15 @@ module zynq_fpga_dac_top_design_wrapper
     FIXED_IO_mio,
     FIXED_IO_ps_clk,
     FIXED_IO_ps_porb,
-    FIXED_IO_ps_srstb);
+    FIXED_IO_ps_srstb,
+    dsd_oe_i_0,
+    ext_key_i_0,
+    i2s_in_bck_i_0,
+    i2s_in_lrck_i_0,
+    i2s_in_sck_i_0,
+    i2s_in_sck_nc_i_0,
+    i2s_in_sdata_i_0,
+    pl_key_i_0);
   inout [14:0]DDR_addr;
   inout [2:0]DDR_ba;
   inout DDR_cas_n;
@@ -52,6 +60,14 @@ module zynq_fpga_dac_top_design_wrapper
   inout FIXED_IO_ps_clk;
   inout FIXED_IO_ps_porb;
   inout FIXED_IO_ps_srstb;
+  input dsd_oe_i_0;
+  input [3:0]ext_key_i_0;
+  input i2s_in_bck_i_0;
+  input i2s_in_lrck_i_0;
+  input i2s_in_sck_i_0;
+  input i2s_in_sck_nc_i_0;
+  input i2s_in_sdata_i_0;
+  input [1:0]pl_key_i_0;
 
   wire [14:0]DDR_addr;
   wire [2:0]DDR_ba;
@@ -74,6 +90,14 @@ module zynq_fpga_dac_top_design_wrapper
   wire FIXED_IO_ps_clk;
   wire FIXED_IO_ps_porb;
   wire FIXED_IO_ps_srstb;
+  wire dsd_oe_i_0;
+  wire [3:0]ext_key_i_0;
+  wire i2s_in_bck_i_0;
+  wire i2s_in_lrck_i_0;
+  wire i2s_in_sck_i_0;
+  wire i2s_in_sck_nc_i_0;
+  wire i2s_in_sdata_i_0;
+  wire [1:0]pl_key_i_0;
 
   zynq_fpga_dac_top_design zynq_fpga_dac_top_design_i
        (.DDR_addr(DDR_addr),
@@ -96,5 +120,13 @@ module zynq_fpga_dac_top_design_wrapper
         .FIXED_IO_mio(FIXED_IO_mio),
         .FIXED_IO_ps_clk(FIXED_IO_ps_clk),
         .FIXED_IO_ps_porb(FIXED_IO_ps_porb),
-        .FIXED_IO_ps_srstb(FIXED_IO_ps_srstb));
+        .FIXED_IO_ps_srstb(FIXED_IO_ps_srstb),
+        .dsd_oe_i_0(dsd_oe_i_0),
+        .ext_key_i_0(ext_key_i_0),
+        .i2s_in_bck_i_0(i2s_in_bck_i_0),
+        .i2s_in_lrck_i_0(i2s_in_lrck_i_0),
+        .i2s_in_sck_i_0(i2s_in_sck_i_0),
+        .i2s_in_sck_nc_i_0(i2s_in_sck_nc_i_0),
+        .i2s_in_sdata_i_0(i2s_in_sdata_i_0),
+        .pl_key_i_0(pl_key_i_0));
 endmodule
