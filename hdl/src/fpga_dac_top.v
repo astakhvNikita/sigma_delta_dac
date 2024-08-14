@@ -21,27 +21,27 @@ module fpga_dac_top
     output [3:0] pl_led_o,
 
     output       dsm_clk_o,
-    output [1:0] dsm_out_o,
+    output [1:0] dsm_out_o
 
-    input        s0_axi_aclk,
-    input        s0_axi_aresetn,
-    input  [S0_AXI_DATA_W - 1:0] s0_axi_awaddr,
-    input        s0_axi_awvalid,
-    output       s0_axi_awready,
-    input  [S0_AXI_DATA_W - 1:0] s0_axi_wdata,
-    input  [S0_AXI_DATA_W / 8 - 1:0] s0_axi_wstrb,
-    input        s0_axi_wvalid,
-    output       s0_axi_wready,
-    output [1:0] s0_axi_bresp,
-    output       s0_axi_bvalid,
-    input        s0_axi_bready,
-    input  [S0_AXI_DATA_W - 1:0] s0_axi_araddr,
-    input        s0_axi_arvalid,
-    output       s0_axi_arready,
-    output [S0_AXI_DATA_W - 1:0] s0_axi_rdata,
-    output [1:0] s0_axi_rresp,
-    output       s0_axi_rvalid,
-    input        s0_axi_rready
+//    input        s0_axi_aclk,
+//    input        s0_axi_aresetn,
+//    input  [S0_AXI_DATA_W - 1:0] s0_axi_awaddr,
+//    input        s0_axi_awvalid,
+//    output       s0_axi_awready,
+//    input  [S0_AXI_DATA_W - 1:0] s0_axi_wdata,
+//    input  [S0_AXI_DATA_W / 8 - 1:0] s0_axi_wstrb,
+//    input        s0_axi_wvalid,
+//    output       s0_axi_wready,
+//    output [1:0] s0_axi_bresp,
+//    output       s0_axi_bvalid,
+//    input        s0_axi_bready,
+//    input  [S0_AXI_DATA_W - 1:0] s0_axi_araddr,
+//    input        s0_axi_arvalid,
+//    output       s0_axi_arready,
+//    output [S0_AXI_DATA_W - 1:0] s0_axi_rdata,
+//    output [1:0] s0_axi_rresp,
+//    output       s0_axi_rvalid,
+//    input        s0_axi_rready
 );
 
 `ifdef __ICARUS__
@@ -75,8 +75,8 @@ module fpga_dac_top
 
     reg  [          25:0] led_cntr;
 
-    assign pl_led_o[1]    = dsd_oe_i;
-    assign pl_led_o[3]    = led_cntr[25];
+    assign pl_led_o[0]    = dsd_oe_i;
+    assign pl_led_o[3:1]  = led_cntr[25:23];
 
     assign dsm_clk_o      = dsd_oe_i ? i2s_in_bck_r :
         (ext_key_i[1] ? clk : clk_64fs_stb);
